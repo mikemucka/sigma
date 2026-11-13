@@ -1,32 +1,80 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Sigma Tools and Rule Tests
+name: Sigma Rule Tests
 
-on:
-  push:
-    branches:
-      - "*"
-  pull_request:
-    branches: [ master, oscd ]
+on: [push, pull_request, merge_group, workflow_dispatch]
 
 jobs:
-  test-sigma:
+  yamllint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - name: yaml-lint
+      uses: ibiqlik/action-yamllint@2576378a8e339169678f9939646ee3ee325e845c # v3
       with:
-        python-version: 3.8
+        strict: true # fail on warnings as well
+
+  test-sigma-logsource:
+    runs-on: ubuntu-latest
+    needs: yamllint
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        submodules: true
+    - name: Set up Python 3.11
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+      with:
+        python-version: 3.11
+    - name: Test Sigma logsource
+      run: |
+        pip install PyYAML colorama
+        python tests/test_logsource.py
+
+  test-sigma-legacy:
+    runs-on: ubuntu-latest
+    needs: yamllint
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        submodules: true
+    - name: Set up Python 3.11
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+      with:
+        python-version: 3.11
+    - name: Test Sigma Rules
+      run: |
+        pip install PyYAML colorama
+        python tests/test_rules.py
+
+  sigma-check:
+    runs-on: ubuntu-latest
+    needs: yamllint
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        submodules: true
+    - name: Set up Python 3.11
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+      with:
+        python-version: 3.11
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pipenv
-        pipenv install --dev --deploy
-    - name: Test Sigma Tools and Rules
+        pip install pysigma
+        pip install sigma-cli
+        pip install pySigma-validators-sigmahq==0.21.*
+    - name: Test Sigma Rule Syntax
       run: |
-        pipenv run make test
-    - name: Test SQL(ite) Backend
+        sigma check --fail-on-error --fail-on-issues --validation-config tests/sigma_cli_conf.yml rules*
+
+  duplicate-id-check:
+    runs-on: ubuntu-latest
+    needs: yamllint
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        submodules: true
+    - name: Check for duplicate IDs
+      shell: /usr/bin/bash {0}  # Use bash without -e to enable exit code manipulation
       run: |
-        pipenv run make test-backend-sql
+        grep -rh "^id: " rules* deprecated unsupported | sort | uniq -c | grep -vE "^\s+1 id: "; exit $(( $? ^ 1 ))

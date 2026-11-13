@@ -1,375 +1,156 @@
-[![Build Status](https://travis-ci.org/Neo23x0/sigma.svg?branch=master)](https://travis-ci.org/Neo23x0/sigma)
+# Sigma - Generic Signature Format for SIEM Systems
 
-![sigma_logo](./images/Sigma_0.3.png)
+<a href="https://sigmahq.io/">
+<p align="center">
+<br />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./images/sigma_logo_dark.png">
+  <img width="454" alt="Sigma Logo" src="./images/sigma_logo_light.png">
+</picture>
+</p>
+</a>
+<br />
 
-# Sigma
+<p align="center">
+<a href="https://github.com/SigmaHQ/sigma/actions?query=branch%3Amaster"><img src="https://github.com/SigmaHQ/sigma/actions/workflows/sigma-test.yml/badge.svg?branch=master" alt="Sigma Build Status"></a> <a href="https://sigmahq.io/"><img src="https://cdn.jsdelivr.net/gh/SigmaHQ/sigmahq.github.io@master/images/Sigma%20Official%20Badge.svg" alt="Sigma Official Badge"></a> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/SigmaHQ/sigma">
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/SigmaHq/Sigma/total">
+<br />
+<a href="https://opensourcesecurityindex.io/" target="_blank" rel="noopener">
+<img style="width: 170px;" src="https://opensourcesecurityindex.io/badge.svg" alt="Open Source Security Index - Fastest Growing Open Source Security Projects" width="170" />
+</a>
+</p>
 
-Generic Signature Format for SIEM Systems
+Welcome to the Sigma main rule repository. The place where detection engineers, threat hunters and all defensive security practitioners collaborate on detection rules. The repository offers more than 3000 detection rules of different type and aims to make reliable detections accessible to all at no cost.
 
-# What is Sigma
+Currently the repository offers three types of rules:
 
-Sigma is a generic and open signature format that allows you to describe relevant log events in a straightforward manner. The rule format is very flexible, easy to write and applicable to any type of log file. The main purpose of this project is to provide a structured form in which researchers or analysts can describe their once developed detection methods and make them shareable with others.
+* [Generic Detection Rules](./rules/) - Are threat agnostic, their aim is to detect a behavior or an implementation of a technique or procedure that was, can or will be used by a potential threat actor.
+* [Threat Hunting Rules](./rules-threat-hunting/) - Are broader in scope and are meant to give the analyst a starting point to hunt for potential suspicious or malicious activity
+* [Emerging Threat Rules](./rules-emerging-threats/) - Are rules that cover specific threats, that are timely and relevant for certain periods of time. These threats include specific APT campaigns, exploitation of Zero-Day vulnerabilities, specific malware used during an attack,...etc.
+* [Compliance Rules](./rules-compliance/) - Are rules that help you identify compliance violations based on well known security frameworks such as CIS Controls, NIST, ISO 27001,...etc.
+* [Placeholder Rules](./rules-placeholder/) - Are rules that get their final meaning at conversion or usage time of the rule.
+
+## Explore Sigma
+
+To start exploring the Sigma ecosystem, please visit the official website [sigmahq.io](https://sigmahq.io)
+
+### What is Sigma
+
+Sigma is a generic and open signature format that allows you to describe relevant log events in a straightforward manner. The rule format is very flexible, easy to write and applicable to any type of log file.
+
+The main purpose of this project is to provide a structured form in which researchers or analysts can describe their once developed detection methods and make them shareable with others.
 
 Sigma is for log files what [Snort](https://www.snort.org/) is for network traffic and [YARA](https://github.com/VirusTotal/yara) is for files.
 
-This repository contains:
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./images/Sigma_description_dark.png">
+  <img alt="Sigma Description - A diagram showing Yaml Files (Sigma Rules) moving through a Sigma Convertor, and coming out as many SIEM logos, showing how Sigma rules can be converted to many different available SIEM query languages" src="./images/Sigma_description_light.png">
+</picture>
 
-1. Sigma rule specification in the [Wiki](https://github.com/Neo23x0/sigma/wiki/Specification)
-2. Open repository for sigma signatures in the `./rules` subfolder
-3. A converter named `sigmac` located in the `./tools/` sub folder that generates search queries for different SIEM systems from Sigma rules
-
-![sigma_description](./images/Sigma-description.png)
-
-## Hack.lu 2017 Talk
-
-[![Sigma - Generic Signatures for Log Events](https://preview.ibb.co/cMCigR/Screen_Shot_2017_10_18_at_15_47_15.png)](https://www.youtube.com/watch?v=OheVuE9Ifhs "Sigma - Generic Signatures for Log Events")
-
-## SANS Webcast on MITRE ATT&CK® and Sigma
-
-The SANS webcast on Sigma contains a very good 20 min introduction to the project by John Hubbart from minute 39 onward. (SANS account required; registration is free)
-
-[MITRE ATT&CK® and Sigma Alerting Webcast Recording](https://www.sans.org/webcasts/mitre-att-ck-sigma-alerting-110010 "MITRE ATT&CK® and Sigma Alerting")
-
-# Use Cases
-
-* Describe your detection method in Sigma to make it shareable
-* Write your SIEM searches in Sigma to avoid a vendor lock-in
-* Share the signature in the appendix of your analysis along with IOCs and YARA rules
-* Share the signature in threat intel communities - e.g. via MISP
-* Provide Sigma signatures for malicious behaviour in your own application
-
-# Why Sigma
+### Why Sigma
 
 Today, everyone collects log data for analysis. People start working on their own, processing numerous white papers, blog posts and log analysis guidelines, extracting the necessary information and build their own searches and dashboard. Some of their searches and correlations are great and very useful but they lack a standardized format in which they can share their work with others.
 
 Others provide excellent analyses, include IOCs and YARA rules to detect the malicious files and network connections, but have no way to describe a specific or generic detection method in log events. Sigma is meant to be an open standard in which such detection mechanisms can be defined, shared and collected in order to improve the detection capabilities for everyone.
 
-## Slides
+### 🌟 Key Features
 
-See the first slide deck that I prepared for a private conference in mid January 2017.
+* A continuously growing list of detection and hunting rules, peer reviewed by a community of professional Detection Engineers.
+* Vendor agnostic detection rules.
+* Easily shareable across communities and reports
 
-[Sigma - Make Security Monitoring Great Again](https://www.slideshare.net/secret/gvgxeXoKblXRcA)
+## 🏗️ Rule Creation
 
-# Specification
+To start writing Sigma rules please check the following getting started guide along with the sigma specification:
 
-The specifications can be found in the [Wiki](https://github.com/Neo23x0/sigma/wiki/Specification).
-
-The current specification is a proposal. Feedback is requested.
+* [Getting Started Guide](https://sigmahq.io/docs/guide/about.html)
+* [Sigma Specification](https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-rules-specification.md)
 
-# Getting Started
+## 🔎 Contributing & Making PRs
 
-## Rule Creation
+Please refer to the [CONTRIBUTING](./CONTRIBUTING.md) guide for detailed instructions on how you can start contributing new rules.
 
-Florian wrote a short [rule creation tutorial](https://www.nextron-systems.com/2018/02/10/write-sigma-rules/) that can help you getting started.
-
-## Rule Usage
-
-1. Download or clone the repository
-2. Check the `./rules` sub directory for an overview on the rule base
-3. Run `python sigmac --help` in folder `./tools` to get a help on the rule converter
-4. Convert a rule of your choice with `sigmac` like `./sigmac -t splunk -c tools/config/generic/sysmon.yml ./rules/windows/process_creation/win_susp_whoami.yml`
-5. Convert a whole rule directory with `python sigmac -t splunk -r ../rules/proxy/`
-6. Check the `./tools/config` folder and the [wiki](https://github.com/Neo23x0/sigma/wiki/Converter-Tool-Sigmac) if you need custom field or log source mappings in your environment
-
-## Troubles / Troubleshooting / Help
-
-If you need help for a specific supported backend you can use e.g. `sigmac --backend-help elastalert-dsl`. More details on the usage of `sigmac` can be found in the dedicated [README.md](https://github.com/Neo23x0/sigma/blob/master/tools/README.md).
-
-Be sure to checkout the [guidance on backend specific settings](https://github.com/Neo23x0/sigma/blob/master/tools/README.md#choosing-the-right-sigmac) for `sigmac`.
-
-# Examples
-
-Windows 'Security' Eventlog: Access to LSASS Process with Certain Access Mask / Object Type (experimental)
-![sigma_rule example2](./images/Sigma_rule_example2.png)
-
-Sysmon: Remote Thread Creation in LSASS Process
-![sigma_rule example1](./images/Sigma_rule_example1.png)
-
-Web Server Access Logs: Web Shell Detection
-![sigma_rule example3](./images/Sigma_rule_example3.png)
-
-Sysmon: Web Shell Detection
-![sigma_rule example4](./images/Sigma_rule_example4.png)
-
-Windows 'Security' Eventlog: Suspicious Number of Failed Logons from a Single Source Workstation
-![sigma_rule example5](./images/Sigma_rule_example5.png)
-
-# Sigma Tools
-
-## Sigmac
-
-Sigmac converts sigma rules into queries or inputs of the supported targets listed below. It acts as a frontend to the
-Sigma library that may be used to integrate Sigma support in other projects. Further, there's `merge_sigma.py` which
-merges multiple YAML documents of a Sigma rule collection into simple Sigma rules.
-
-### Usage
-
-```bash
-usage: sigmac [-h] [--recurse] [--filter FILTER]
-              [--target {sqlite,netwitness-epl,logpoint,graylog,netwitness,arcsight,carbonblack,es-rule,ala,elastalert-dsl,splunkxml,fieldlist,sysmon,arcsight-esm,kibana,csharp,qualys,powershell,es-qs,mdatp,humio,grep,qradar,logiq,sql,sumologic,ala-rule,limacharlie,elastalert,splunk,stix,xpack-watcher,crowdstrike,es-dsl,ee-outliers}]
-              [--target-list] [--config CONFIG] [--output OUTPUT]
-              [--backend-option BACKEND_OPTION] [--defer-abort]
-              [--ignore-backend-errors] [--verbose] [--debug]
-              [inputs [inputs ...]]
-
-Convert Sigma rules into SIEM signatures.
-
-positional arguments:
-  inputs                Sigma input files ('-' for stdin)
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --recurse, -r         Use directory as input (recurse into subdirectories is
-                        not implemented yet)
-  --filter FILTER, -f FILTER
-                        Define comma-separated filters that must match (AND-
-                        linked) to rule to be processed. Valid filters:
-                        level<=x, level>=x, level=x, status=y, logsource=z,
-                        tag=t. x is one of: low, medium, high, critical. y is
-                        one of: experimental, testing, stable. z is a word
-                        appearing in an arbitrary log source attribute. t is a
-                        tag that must appear in the rules tag list, case-
-                        insensitive matching. Multiple log source
-                        specifications are AND linked.
-  --target {arcsight,es-qs,es-dsl,kibana,xpack-watcher,elastalert,graylog,limacharlie,logpoint,grep,netwitness,powershell,qradar,qualys,splunk,splunkxml,sumologic,fieldlist,mdatp}, -t {arcsight,es-qs,es-dsl,kibana,xpack-watcher,elastalert,graylog,limacharlie,logpoint,grep,netwitness,powershell,qradar,qualys,splunk,splunkxml,sumologic,fieldlist,mdatp}
-                        Output target format
-  --target-list, -l     List available output target formats
-  --config CONFIG, -c CONFIG
-                        Configurations with field name and index mapping for
-                        target environment. Multiple configurations are merged
-                        into one. Last config is authoritative in case of
-                        conflicts.
-  --output OUTPUT, -o OUTPUT
-                        Output file or filename prefix if multiple files are
-                        generated
-  --backend-option BACKEND_OPTION, -O BACKEND_OPTION
-                        Options and switches that are passed to the backend
-  --defer-abort, -d     Don't abort on parse or conversion errors, proceed
-                        with next rule. The exit code from the last error is
-                        returned
-  --ignore-backend-errors, -I
-                        Only return error codes for parse errors and ignore
-                        errors for rules that cause backend errors. Useful,
-                        when you want to get as much queries as possible.
-  --verbose, -v         Be verbose
-  --debug, -D           Debugging output
-```
-
-### Examples
-
-#### Single Rule Translation
-Translate a single rule
-```
-tools/sigmac -t splunk -c splunk-windows rules/windows/sysmon/sysmon_susp_image_load.yml
-```
-#### Rule Set Translation
-Translate a whole rule directory and ignore backend errors (`-I`) in rule conversion for the selected backend (`-t splunk`)
-```
-tools/sigmac -I -t splunk -c splunk-windows -r rules/windows/sysmon/
-```
-#### Translate Only Rules of Level High or Critical
-Translate a whole rule directory and ignore backend errors (`-I`) in rule conversion for the selected backend (`-t splunk`) and select only rules of level `high` and `critical`
-```
-tools/sigmac -I -t splunk -c splunk-windows -f 'level>=high' -r rules/windows/sysmon/
-```
-#### Rule Set Translation with Custom Config
-Apply your own config file (`-c ~/my-elk-winlogbeat.yml`) during conversion, which can contain you custom field and source mappings
-```
-tools/sigmac -t es-qs -c ~/my-elk-winlogbeat.yml -r rules/windows/sysmon
-```
-#### Generic Rule Set Translation
-Use a config file for `process_creation` rules (`-r rules/windows/process_creation`) that instructs sigmac to create queries for a Sysmon log source (`-c tools/config/generic/sysmon.yml`) and the ElasticSearch target backend (`-t es-qs`)
-```
-tools/sigmac -t es-qs -c tools/config/generic/sysmon.yml -r rules/windows/process_creation
-```
-#### Generic Rule Set Translation with Custom Config
-Use a config file for a single `process_creation` rule (`./rules/windows/process_creation/win_susp_outlook.yml`) that instructs sigmac to create queries for process creation events generated in the Windows Security Eventlog (`-c tools/config/generic/windows-audit.yml`) and a Splunk target backend (`-t splunk`)
-```
-tools/sigmac -t splunk -c ~/my-splunk-mapping.yml -c tools/config/generic/windows-audit.yml ./rules/windows/process_creation/win_susp_outlook.yml
-```
-(See @blubbfiction's [blog post](https://patzke.org/a-guide-to-generic-log-sources-in-sigma.html) for more information)
-
-### Supported Targets
-
-* [Splunk](https://www.splunk.com/) (plainqueries and dashboards)
-* [ElasticSearch Query Strings](https://www.elastic.co/)
-* [ElasticSearch Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html)
-* [Kibana](https://www.elastic.co/de/products/kibana)
-* [Elastic X-Pack Watcher](https://www.elastic.co/guide/en/x-pack/current/xpack-alerting.html)
-* [Logpoint](https://www.logpoint.com)
-* [Microsoft Defender Advanced Threat Protection (MDATP)](https://www.microsoft.com/en-us/microsoft-365/windows/microsoft-defender-atp)
-* [Azure Sentinel / Azure Log Analytics](https://azure.microsoft.com/en-us/services/azure-sentinel/)
-* [Sumologic](https://www.sumologic.com/)
-* [ArcSight](https://software.microfocus.com/en-us/products/siem-security-information-event-management/overview)
-* [QRadar](https://www.ibm.com/de-de/marketplace/ibm-qradar-siem)
-* [Qualys](https://www.qualys.com/apps/threat-protection/)
-* [RSA NetWitness](https://www.rsa.com/en-us/products/threat-detection-response)
-* [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6)
-* [Grep](https://www.gnu.org/software/grep/manual/grep.html) with Perl-compatible regular expression support
-* [LimaCharlie](https://limacharlie.io)
-* [ee-outliers](https://github.com/NVISO-BE/ee-outliers)
-* [Structured Threat Information Expression (STIX)](https://oasis-open.github.io/cti-documentation/stix/intro.html)
-* [LOGIQ](https://www.logiq.ai)
-* [uberAgent ESA](https://uberagent.com/)
-
-Current work-in-progress
-* [Splunk Data Models](https://docs.splunk.com/Documentation/Splunk/7.1.0/Knowledge/Aboutdatamodels)
-
-New targets are continuously developed. You can get a list of supported targets with `sigmac --lists` or `sigmac -l`.
-
-### Requirements
-
-The usage of Sigmac (the Sigma Rule Converter) or the underlying library requires Python >= 3.5 and PyYAML.
-
-### Installation
-
-It's available on PyPI. Install with:
-
-```bash
-pip3 install sigmatools
-```
-
-Alternatively, if used from the Sigma Github repository, the Python dependencies can be installed with [Pipenv](https://pypi.org/project/pipenv/).
-Run the following command to get a shell with the installed requirements:
-
-```bash
-pipenv shell
-```
-
-For development (e.g. execution of integration tests with `make` and packaging), further dependencies are required and can be installed with:
-
-```bash
-pipenv install --dev
-pipenv shell
-```
-
-## Sigma2MISP
-
-Import Sigma rules to MISP events. Depends on PyMISP.
-
-Parameters that aren't changed frequently (`--url`, `--key`) can be put without the prefixing dashes `--` into a file
-and included with `@filename` as parameter on the command line.
-
-Example:
-*misp.conf*:
-```
-url https://host
-key foobarfoobarfoobarfoobarfoobarfoobarfoo
-```
-
-Load Sigma rule into MISP event 1234:
-```
-sigma2misp @misp.conf --event 1234 sigma_rule.py
-```
-
-Load Sigma rules in directory sigma_rules/ into one newly created MISP event with info set to *Test Event*:
-```
-sigma2misp @misp.conf --same-event --info "Test Event" -r sigma_rules/
-```
-
-## Evt2Sigma
-
-[Evt2Sigma](https://github.com/Neo23x0/evt2sigma) helps you with the rule creation. It generates a Sigma rule from a log entry.
-
-## Sigma2attack
-
-Generates a [MITRE ATT&CK® Navigator](https://github.com/mitre/attack-navigator/) heatmap from a directory containing sigma rules.
-
-Requirements:
-- Sigma rules tagged with a `attack.tXXXX` tag (e.g.: `attack.t1086`)
-
-Usage samples:
-
-```
-# Use the default "rules" folder
-./tools/sigma2attack
-
-# ... or specify your own
-./tools/sigma2attack --rules-directory ~/hunting/rules
-```
-
-Result once imported in the MITRE ATT&CK® Navigator ([online version](https://mitre-attack.github.io/attack-navigator/enterprise/)):
-
-![Sigma2attack result](./images/sigma2attack.png)
-
-## S2AN
-
-Similar to **Sigma2attack**, [S2AN](https://github.com/3CORESec/S2AN) is a pre-compiled binary for both Windows and GNU/Linux that generates [MITRE ATT&CK® Navigator](https://github.com/mitre/attack-navigator/) layers from a directory of Sigma rules.
-
-S2AN was developed to be used as a standalone tool or as part of a CI/CD pipeline where it can be quickly downloaded and executed without external dependencies.
-
-## Contributed Scripts
-
-The directory `contrib` contains scripts that were contributed by the community:
-
-* `sigma2elastalert.py`i by David Routin: A script that converts Sigma rules to Elastalert configurations. This tool
-  uses *sigmac* and expects it in its path.
-
-These tools are not part of the main toolchain and maintained separately by their authors.
-
-# Next Steps
-
-* Integration of MITRE ATT&CK® framework identifier to the rule set
-* Integration into Threat Intel Exchanges
-* Attempts to convince others to use the rule format in their reports, threat feeds, blog posts, threat sharing platforms
-
-# Projects or Products that use Sigma
-
-* [MISP](http://www.misp-project.org/2017/03/26/MISP.2.4.70.released.html) (since version 2.4.70, March 2017)
-* [SOC Prime - Sigma Rule Editor](https://tdm.socprime.com/sigma/)
-* [uncoder.io](https://uncoder.io/) - Online Translator for SIEM Searches
-* [THOR](https://www.nextron-systems.com/2018/06/28/spark-applies-sigma-rules-in-eventlog-scan/) - Scan with Sigma rules on endpoints
-* [Joe Sandbox](https://www.joesecurity.org/)
-* [ypsilon](https://github.com/P4T12ICK/ypsilon) - Automated Use Case Testing
-* [RANK VASA](https://globenewswire.com/news-release/2019/03/04/1745907/0/en/RANK-Software-to-Help-MSSPs-Scale-Cybersecurity-Offerings.html)
-* [TA-Sigma-Searches](https://github.com/dstaulcu/TA-Sigma-Searches) (Splunk App)
-* [TimeSketch](https://github.com/google/timesketch/commit/0c6c4b65a6c0f2051d074e87bbb2da2424fa6c35)
+## 📦 Rule Packages
+
+You can download the latest rule packages from the [release page](https://github.com/SigmaHQ/sigma/releases/latest) and start leveraging Sigma rules today. New rules are also released on a regular basis, so check back often for the latest detections.
+
+## 🧬 Rule Usage and Conversion
+
+* You can start converting Sigma rules today using:
+  * [Sigma CLI](https://github.com/SigmaHQ/sigma-cli) - the official command-line converter
+  * [sigconverter.io](https://sigconverter.io) - web-based GUI converter
+  * [Detection Studio](https://detection.studio/) - web-based GUI converter
+
+* To integrate Sigma rules in your own toolchain or products use [pySigma](https://github.com/SigmaHQ/pySigma).
+
+## 🚨 Reporting False Positives or New Rule Ideas
+
+If you find a false positive or would like to propose a new detection rule idea but do not have the time to create one, please create a new issue on the [GitHub repository](https://github.com/SigmaHQ/sigma/issues/new/choose) by selecting one of the available templates.
+
+## 💬 Community
+
+Join the Sigma community on [Discord](https://discord.gg/CZhaX3ygdt) to discuss detection engineering, ask questions, share ideas, and collaborate with other practitioners. We also use Discord for announcements such as new releases and other project updates.
+
+## 🌐 Official Resources
+
+* [sigmahq.io](https://sigmahq.io/) - Official Sigma website
+* [SigmaHQ Blog](https://blog.sigmahq.io/) - Official blog covering detection engineering, rule releases, and Sigma updates
+* [Phoenix - Sigma Rule Intelligence Platform](https://sigma.nasbench.dev/) - Search, analyze, and understand Sigma rules mapped to MITRE ATT&CK
+
+## 📚 Resources & Further Reading
+
+* [Hack.lu 2017 Sigma - Generic Signatures for Log Events by Thomas Patzke](https://www.youtube.com/watch?v=OheVuE9Ifhs)
+* [Sigma - Generic Signatures for SIEM Systems by Florian Roth](https://www.slideshare.net/secret/gvgxeXoKblXRcA)
+* [50 Shades of Sigma by Florian Roth](https://www.slideshare.net/FlorianRoth2/50-shades-of-sigma)
+* [Introducing Sigma Specification v2.0 by Nasreddine Bencherchali](https://blog.sigmahq.io/introducing-sigma-specification-v2-0-25f81a926ff0)
+* [SIGMA-Resources - Curated list of resources to learn and understand Sigma rules](https://github.com/nasbench/SIGMA-Resources)
+* [The Ultimate Guide to Sigma Rules by Graylog](https://graylog.org/post/the-ultimate-guide-to-sigma-rules/)
+* [Introduction to Sigma Rules by Intezer](https://intezer.com/blog/threat-hunting/intro-to-sigma-rules/)
+
+## Projects or Products that use or integrate Sigma rules
+* [AlphaSOC](https://docs.alphasoc.com/detections_and_findings/sigma/introduction/) - Leverages Sigma rules to increase coverage across all supported log sources
+* [alterix](https://github.com/mtnmunuklu/alterix) - Converts Sigma rules to the query language of CRYPTTECH's SIEM
+* [AttackIQ](https://www.attackiq.com/2024/01/10/sigmaiq-attackiqs-latest-innovation-for-actionable-detections/) - Sigma Rules integrated in AttackIQ's platform, and [SigmAIQ](https://github.com/AttackIQ/SigmAIQ) for Sigma rule conversion and LLM apps
+* [Atomic Threat Coverage](https://github.com/atc-project/atomic-threat-coverage) - Automatically maps Sigma rules to MITRE ATT&CK techniques, Atomic Red Team tests, and incident response playbooks (since December 2018)
+* [ATR (Agent Threat Rules)](https://github.com/Agent-Threat-Rule/agent-threat-rules) - Open MIT-licensed detection rule format for AI agent security threats (prompt injection, tool poisoning, context exfiltration). Reference CLI exports ATR rules to Sigma format via `atr convert sigma`.
+* [AttackRuleMap](https://attackrulemap.com/) - Maps Atomic Red Team attack simulations to open-source Sigma detection rules for coverage assessment
+* [Confluent Sigma](https://github.com/confluentinc/confluent-sigma) - Kafka Streams supported Sigma rules
+* [Detection Studio](https://detection.studio/?ref=sigmahq_readme) - Convert Sigma rules to any supported SIEM
+* [Exeon.UEBA](https://exeon.com/ueba/) - User and Entity Behavior Analytics (UEBA) solution from Exeon which provides a built-in Sigma detection engine
+* [HAWK.io MDR](https://www.hawk.io/) - Managed detection and response platform that runs Sigma rules as native detections, converted with the open-source [pySigma-backend-hawk](https://github.com/redsand/pySigma-backend-hawk)
+* [IBM QRadar](https://community.ibm.com/community/user/security/blogs/gladys-koskas1/2023/08/02/qradar-natively-supports-sigma-for-rules-creation) - Natively ingests Sigma rules for real-time detection via the YARA and Sigma Rules Manager app
+* [Joe Sandbox](https://www.joesecurity.org/blog/8225577975210857708) - Automated malware analysis platform that applies Sigma rules during sandbox execution to detect threats in behavioral logs
+* [LimaCharlie](https://limacharlie.io/) - SecOps cloud platform with native Sigma rule support and automatic conversion to its Detection & Response rule format
+* [MISP](http://www.misp-project.org/2017/03/26/MISP.2.4.70.released.html) - Open-source threat intelligence sharing platform with native Sigma rule support (since version 2.4.70, March 2017)
+* [Nextron's Aurora Agent](https://www.nextron-systems.com/aurora/) - Lightweight Sigma-based EDR agent using ETW for real-time endpoint detection
+* [Nextron's THOR Scanner](https://www.nextron-systems.com/thor/) - Scan with Sigma rules on endpoints
+* [RANK VASA](https://globenewswire.com/news-release/2019/03/04/1745907/0/en/RANK-Software-to-Help-MSSPs-Scale-Cybersecurity-Offerings.html) - AI-based network threat detection platform that uses Sigma rules to identify security anomalies for MSSPs
+* [Saeros](https://github.com/Saeros-Security/Saeros) - Open-source HIDS for Windows and Active Directory with local Sigma rule matching via ETW
+* [Security Onion](https://docs.securityonion.net/en/3/main/sigma/) - Open-source network security monitoring platform with built-in Sigma detection and automatic daily rule updates
+* [Sekoia.io XDR](https://www.sekoia.io) - XDR supporting Sigma and Sigma Correlation rules languages
+* [sigma2stix](https://github.com/muchdogesec/sigma2stix) - Converts the entire SigmaHQ Ruleset into STIX 2.1 Objects
 * [SIΣGMA](https://github.com/3CORESec/SIEGMA) - SIEM consumable generator that utilizes Sigma for query conversion
+* [SOC Prime](https://my.socprime.com/sigma/) - Threat detection marketplace hosting community Sigma rules with translation to 25+ SIEM, EDR, and XDR platforms
+* [TA-Sigma-Searches](https://github.com/dstaulcu/TA-Sigma-Searches) - Splunk app providing saved searches derived from converted Sigma rules
+* [TimeSketch](https://github.com/google/timesketch/commit/0c6c4b65a6c0f2051d074e87bbb2da2424fa6c35) - Open-source collaborative forensic timeline analysis tool that uses Sigma rules to tag and detect events
+* [Varpulis](https://varpulis-cep.com) - Open-source stream engine that runs Sigma rules, correlation rules included, on Kafka or NATS event streams, judged in event time
+* [VirusTotal](https://docs.virustotal.com/docs/crowdsourced-sigma-rules) - Whenever a sample matches any open-source Sigma rules, the matching rules are displayed as part of the file report
+* [ypsilon](https://github.com/P4T12ICK/ypsilon) - Automated Use Case Testing
 
-Sigma is available in some Linux distribution repositories:
+## 📜 Maintainers
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/sigma.svg)](https://repology.org/project/sigma/versions)
+* [Nasreddine Bencherchali (@nas_bench)](https://x.com/nas_bench)
+* [Florian Roth (@cyb3rops)](https://x.com/cyb3rops)
+* [Christian Burkard (@phantinuss)](https://x.com/phantinuss)
+* [François Hubaut (@frack113)](https://x.com/frack113)
+* [Thomas Patzke (@blubbfiction)](https://x.com/blubbfiction)
+* [Mohamed Ashraf (@X__Junior)](https://x.com/X__Junior)
+* [Swachchhanda Shrawan Poudel (@\_swachchhanda\_)](https://x.com/_swachchhanda_)
 
-# Contribution
+## Credits
 
-If you want to contribute, you are more then welcome. There are numerous ways to help this project.
+This project would've never reached this height without the help of the hundreds of contributors. Thanks to all past and present contributors for their help.
 
-## Use it and provide feedback
+## Licenses
 
-If you use it, let us know what works and what does not work.
-
-E.g.
-- Tell us about false positives (issues section)
-- Try to provide an improved rule (new filter) via [pull request](https://help.github.com/en/articles/editing-files-in-another-users-repository) on that rule
-
-## Work on open issues
-
-The github issue tracker is a good place to start tackling some issues others raised to the project. It could be as easy as a review of the documentation.
-
-## Provide Backends / Backend Features / Bugfixes
-
-Various requests for sigmac (sigma converter) backends exist. Some backends are very limited and need features. We are working on a documentation on how to write new backends but our time for this project is currently mostly spent for issue resolutions.
-
-## Spread the word
-
-Last but not least, the more people use Sigma, the better, so help promote it by sharing it via social media. If you are using it, consider giving a talk about your journey and tell us about it.
-
-# Licenses
-
-The content of this repository is released under the following licenses:
-
-* The toolchain (everything under `tools/`) is licensed under the [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.en.html).
-* The [Sigma specification](https://github.com/Neo23x0/sigma/wiki) is public domain.
-* Everything else, especially the rules contained in the `rules/` directory is released under the [Detection Rule License (DRL) 1.0](https://github.com/Neo23x0/sigma/blob/master/LICENSE.Detection.Rules.md).
-
-# Credits
-
-This is a private project mainly developed by Florian Roth and Thomas Patzke with feedback from many fellow analysts and friends. Rules are our own or have been drived from blog posts, tweets or other public sources that are referenced in the rules.
-
-# Info Graphic
-
-## Overview
-![sigmac_info_graphic](./images/sigma_infographic_lq.png)
-
-## Coverage Illustration
-![sigmac_coverage](./images/Sigma_Coverage.png)
+The content of this repository is released under the [Detection Rule License (DRL) 1.1](https://github.com/SigmaHQ/Detection-Rule-License).

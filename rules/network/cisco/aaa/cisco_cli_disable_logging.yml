@@ -1,19 +1,18 @@
 title: Cisco Disabling Logging
 id: 9e8f6035-88bf-4a63-96b6-b17c0508257e
-status: experimental
+status: test
 description: Turn off logging locally or remote
+references:
+    - https://www.cisco.com/en/US/docs/ios/security/command/reference/sec_a2.pdf
 author: Austin Clark
-date: 2019/08/11
+date: 2019-08-11
+modified: 2023-01-04
+tags:
+    - attack.defense-impairment
+    - attack.t1685
 logsource:
     product: cisco
     service: aaa
-    category: accounting
-fields:
-    - src
-    - CmdSet
-    - User
-    - Privilege_Level
-    - Remote_Address
 detection:
     keywords:
         - 'no logging'
@@ -22,7 +21,3 @@ detection:
 falsepositives:
     - Unknown
 level: high
-tags:
-    - attack.defense_evasion
-    - attack.t1089          # an old one
-    - attack.t1562.001

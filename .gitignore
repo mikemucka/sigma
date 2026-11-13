@@ -57,6 +57,9 @@ local_settings.py
 instance/
 .webassets-cache
 
+# MacOS Finder
+.DS_Store
+
 # Scrapy stuff:
 .scrapy
 
@@ -98,3 +101,6 @@ settings.json
 
 # sigma2attack
 heatmap.json
+
+# VS Code workspace settings
+.vscode/
